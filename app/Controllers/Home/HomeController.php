@@ -3,6 +3,7 @@
 use Controllers\Controller;
 use Zephyrus\Network\Response;
 use Zephyrus\Network\Router\Get;
+use Zephyrus\Network\Router\Post;
 
 class HomeController extends Controller
 {
@@ -11,4 +12,5 @@ class HomeController extends Controller
     {
         return $this->render("home", ['title' => 'Bienvenue']);
     }
+
 }
