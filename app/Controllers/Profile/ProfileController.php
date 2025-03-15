@@ -1,9 +1,11 @@
 <?php
 
-namespace Controllers;
+namespace Controllers\Profile;
 
-use Zephyrus\Network\Response;
+use Controllers\Controller;
+use Zephyrus\Network\Router\Put;
 use Zephyrus\Network\Router\Get;
+use Zephyrus\Network\Response;
 
 class ProfileController extends Controller
 {
