@@ -2,16 +2,17 @@
 
 namespace Models\Profile\Services;
 
-use Models\Profile\Brokers\UserAccountBroker;
+use Models\Profile\Brokers\TokenBroker;
+use Models\Profile\Brokers\UserProfileBroker;
 use Zephyrus\Application\Form;
-use Zephyrus\Security\Cryptography;
 
-
-class AccountService
+class LoginService
 {
+
     public function __construct()
     {
-        $this-> userAccountBroker = new UserAccountBroker();
+        $this-> userProfileBroker = new UserProfileBroker();
+        $this-> tokenBroker = new TokenBroker();
     }
 
     public function loginUser(Form $form)
@@ -19,7 +20,7 @@ class AccountService
         $username = $form->getValue("username");
         $password = $form->getValue("password");
 
-        $user = $this->userAccountBroker->findByUsername($username);
+        $user = $this->userProfileBroker->findByUsername($username);
 
         //print (hash("sha256", $password));
 
@@ -29,7 +30,8 @@ class AccountService
 
 
         if ($user->password === hash("sha256", $password)) {
-            return ["success" => true];
+            return ["Connection Success" => true,
+                "Token" => $user->token];
         } else {
             return ["Wrong Password" => false];
         }

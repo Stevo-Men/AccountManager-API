@@ -3,16 +3,28 @@
 namespace Controllers\Profile;
 
 use Controllers\Controller;
+use Models\Profile\Services\ProfileService;
 use Zephyrus\Network\Router\Put;
 use Zephyrus\Network\Router\Get;
 use Zephyrus\Network\Response;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this-> profileService = new ProfileService();
+    }
+
     #[Get("/profile/{token}")]
     public function getProfile(string $token): Response
     {
-        return new Response();
+
+        $userProfile = $this->profileService->getUserProfile($token);
+        if (is_null($userProfile)) {
+            return $this->abortNotFound();
+        }
+        return $this->json(['Profile' => $userProfile]);
+
     }
 
     #[Put("/profile/{token}")]
