@@ -16,7 +16,7 @@ class TokenBroker extends DatabaseBroker
         ]);
     }
 
-    public function updateToken(Token $token)
+    public function update(Token $token)
     {
         $this->query("UPDATE product 
                                SET token = ?, createat = NOW()
@@ -29,14 +29,15 @@ class TokenBroker extends DatabaseBroker
 
     public function findValidTokenByValue(string $tokenValue): ?Token
     {
-        $row = $this->selectSingle("
-        SELECT userid, token, createdat
-        FROM token
-        WHERE token = ? 
-        LIMIT 1",
+        $row = $this->selectSingle(
+            "SELECT userid, token, createdat AS \"createdAt\"
+         FROM token
+         WHERE token = ?
+         LIMIT 1",
             [$tokenValue]
         );
 
         return $row ? Token::mapToToken($row) : null;
     }
+
 }

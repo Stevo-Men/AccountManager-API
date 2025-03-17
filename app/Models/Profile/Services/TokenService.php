@@ -18,26 +18,25 @@ class TokenService
         $this->userAccountBroker = new UserProfileBroker();
     }
 
-    private function generateToken(int $userId): ?Token
-    {
-        $user = $this->userAccountBroker->findById($userId);
-        if (!$user) {
-            return null;
+
+    public function updateTokenForUser(UserProfile $user): Token {
+        $token = $this->userAccountBroker->findById($user->id);
+
+        if (!$token) {
+            $token = new Token();
+            $token->userId = $user->id;
         }
 
-        $tokenValue = "jwt_" . uniqid(bin2hex(random_bytes(16)), true);
-        $userToken = new UserToken();
-        $userToken->userId = $userId;
-        $userToken->token = $tokenValue;
+        $newTokenValue = bin2hex(random_bytes(32));
 
+        $token->token = $newTokenValue;
+        $token->createdAt = new \DateTime()->format("Y-m-d H:i:s");;
 
-        return $this->tokenBroker->save($userToken);
+        $this->tokenBroker->saveToken($token);
+
+        return $token;
     }
 
-    public function validateToken(string $tokenValue): ?Token
-    {
-        return $this->tokenBroker->findValidTokenByValue($tokenValue) ?: null;
-    }
 
 
 

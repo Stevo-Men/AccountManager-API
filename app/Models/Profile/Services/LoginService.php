@@ -22,11 +22,6 @@ class LoginService
 
         $user = $this->userProfileBroker->findByUsername($username);
 
-        //print (hash("sha256", $password));
-
-//        printf ($user->password);
-//        printf (hash("sha256",$password));
-
 
 
         if ($user->password === hash("sha256", $password)) {

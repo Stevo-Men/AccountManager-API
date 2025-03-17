@@ -1,4 +1,4 @@
-INSERT INTO userAccount (username, password, firstName, lastName, email, type)
+INSERT INTO userProfile (username, password, firstName, lastName, email, type)
 VALUES
     ('steve_m', '4837dd8fae7348d21ab8b72341bf7dff75f12b7c3e1973ba88e4906c12cdc111', 'Steve', 'Menard', 'steve.m@example.com', 'NORMAL'),
     ('bob_builder', 'f42441fcd0f171463b31be027991dbb6da6ae25b80b7fa185ff91cb010390f78', 'Bob', 'Builder', 'bob.builder@example.com', 'PREMIUM'),
@@ -17,11 +17,11 @@ VALUES
 
 INSERT INTO wallet (userId, balance, amountSpent)
 VALUES
-    ((SELECT id FROM userAccount WHERE username = 'steve_m'), 100.00, 50.00),
-    ((SELECT id FROM userAccount WHERE username = 'bob_builder'), 250.00, 100.00),
-    ((SELECT id FROM userAccount WHERE username = 'carol_s'), 500.00, 200.00),
-    ((SELECT id FROM userAccount WHERE username = 'david_j'), 150.00, 75.00),
-    ((SELECT id FROM userAccount WHERE username = 'eve_l'), 300.00, 150.00);
+    ((SELECT id FROM userProfile WHERE username = 'steve_m'), 100.00, 50.00),
+    ((SELECT id FROM userProfile WHERE username = 'bob_builder'), 250.00, 100.00),
+    ((SELECT id FROM userProfile WHERE username = 'carol_s'), 500.00, 200.00),
+    ((SELECT id FROM userProfile WHERE username = 'david_j'), 150.00, 75.00),
+    ((SELECT id FROM userProfile WHERE username = 'eve_l'), 300.00, 150.00);
 
 
 INSERT INTO transaction (id, userId, name, price, quantity)

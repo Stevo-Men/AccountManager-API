@@ -8,23 +8,24 @@ class UserProfile extends Entity
 {
     public int $id;
     public string $username;
-    public string $password;
-    public string $firstName;
-    public string $lastName;
+    public string $firstname;
+    public string $lastname;
     public string $email;
+    public string $password;
     public string $type;
 
-    public static function mapToUserAccount(object $row): UserProfile
+    public static function mapToUserProfile(object $row): UserProfile
     {
-        $user = new UserProfile();
-        $user->id = $row->id;
-        $user->username = $row->username;
-        $user->firstname = $row->firstname;
-        $user->lastname = $row->lastname;
-        $user->email = $row->email;
-        $user->password = $row->password;
-        $user->type = $row->type;
+        $userProfile = new UserProfile();
+        $userProfile->id        = $row['id'];
+        $userProfile->username  = $row['username'];
+        $userProfile->password  = $row['password'];
+        $userProfile->firstname = $row['firstname'];
+        $userProfile->lastname  = $row['lastname'];
+        $userProfile->email     = $row['email'];
+        $userProfile->type      = $row['type'] ?? 'NORMAL';
 
-        return $user;
+        return $userProfile;
     }
+
 }
